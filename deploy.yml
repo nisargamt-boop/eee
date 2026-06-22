@@ -1,0 +1,12 @@
+---
+- name: Deploy HelloWorld App
+  hosts: local
+  tasks:
+    - name: Copy the JAR file to the deployment directory
+      copy:
+        src: /var/lib/jenkins/workspace/HelloWorld-Maven-Build/target/helloworld-1.0-SNAPSHOT.jar
+        dest: /opt/myapp/helloworld.jar
+        mode: '0755'
+
+    - name: Restart the application
+      shell: "nohup java -jar /opt/myapp/helloworld.jar > /opt/myapp/app.log 2>&1 &"
